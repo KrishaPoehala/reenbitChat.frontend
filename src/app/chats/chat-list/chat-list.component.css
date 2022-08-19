@@ -1,0 +1,7 @@
+
+.chat-list-container{
+    overflow-y: scroll;
+    height: 100vh;
+    border-right:2px solid black;
+     width:auto;
+}

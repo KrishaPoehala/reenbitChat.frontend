@@ -1,0 +1,30 @@
+img{
+    clip-path: circle();
+    height: 40px;
+    margin:7px;
+}
+
+.sender-name{
+    color:red;
+}
+p{
+    word-break: break-all;
+    white-space: normal;
+}
+.message-text{
+    min-width: 100px;
+    text-overflow:clip;
+    max-width: 500px;
+    background-color: lightcyan;
+    padding: 4px;
+    border-radius: 4px;
+    font-size:14px;
+}
+
+.selected-message{
+    background-color: cornflowerblue;
+}
+
+.sent-date{
+    text-align: end;
+}

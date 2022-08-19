@@ -1,0 +1,21 @@
+.messages-container{
+    overflow-y:scroll;
+    height: 650px;
+    margin:0 0 auto;
+    
+}
+.center-label{
+    text-align: center;
+}
+.input-message{
+    background-color: #dfeeff;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 50%;    
+}
+
+.icon{
+    margin-left: 10px;
+    margin-right: 10px;
+}

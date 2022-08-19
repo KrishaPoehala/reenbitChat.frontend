@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  userChats: "https://localhost:7139/api/Chats/chats/",
+  randomUser: "https://localhost:7139/api/Chats/randomUser",
+  firstMessages: "https://localhost:7139/api/Chats/messages/",
+  sendMessage: "https://localhost:7139/api/Chats/send",
+  editMessage : "https://localhost:7139/api/Chats/edit",
+  delete:"https://localhost:7139/api/Chats/delete/"
 };
 
 /*

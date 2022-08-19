@@ -1,0 +1,22 @@
+
+<div *ngIf="chat?.messages?.length ===0" class="center-label">
+    <h2>Nothing here yet...</h2>
+</div>
+
+<div *ngIf="chat?.messages?.length !== 0">
+    <div class="messages-container d-flex flex-column justify-content-start"
+    #scrollframe (scroll)="onScroll($event)">
+        <div *ngFor="let messageF of chat?.messages" #item>
+            <app-message-item [message]="messageF" [currentUser]="currentUser"
+            (deleteForSenderEmmiter)="deleteForSenderHandler($event)">
+            </app-message-item>
+        </div>
+    </div>
+</div>
+
+<div>
+    <form  *ngIf="chat" [formGroup]="messageForm" class="input-message" >
+        <textarea (keyup.enter)="send()" type="text" class="form-control" placeholder="Message..."
+        formControlName="message" rows="1"></textarea>
+    </form>
+</div>

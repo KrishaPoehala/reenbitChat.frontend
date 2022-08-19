@@ -1,0 +1,15 @@
+    
+    <div class="d-flex">
+        <div class="chat-list-container">
+            <div *ngFor="let chatF of chats">
+                <app-chat-item
+                 [chat]="chatF" (chatSelectedEmitter)="chatSelectedHandler($event)"
+                 [currentUser]="currentUser">
+                </app-chat-item>
+           </div>
+        </div>
+       
+        <div style="flex-grow:1">
+            <app-messages-list [chat]="selectedChat"  [currentUser]="currentUser"></app-messages-list>
+        </div>
+    </div>

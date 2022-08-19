@@ -1,0 +1,29 @@
+
+
+img{
+    clip-path: circle();
+    height: 50px;
+}
+
+.chat-container :hover{
+    cursor:pointer;
+    background-color: lightgray;
+}
+
+.chat-container{
+    overflow: hidden;
+    white-space: nowrap;
+    width:350px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
