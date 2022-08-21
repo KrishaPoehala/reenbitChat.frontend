@@ -2,7 +2,7 @@ import { UserService } from './../../Services/UserService';
 import { NewMessageDto } from './../../../Dtos/NewMessageDto';
 import { ChatService } from './../../Services/ChatService';
 import { ChatDto } from './../../../Dtos/ChatDto';
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserDto } from 'src/Dtos/UserDto';
 import { MessageDto } from 'src/Dtos/MessageDto';
@@ -10,7 +10,8 @@ import { MessageDto } from 'src/Dtos/MessageDto';
 @Component({
   selector: 'app-messages-list',
   templateUrl: './messages-list.component.html',
-  styleUrls: ['./messages-list.component.css']
+  styleUrls: ['./messages-list.component.css'], 
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class MessagesListComponent implements OnInit, AfterViewInit {
 

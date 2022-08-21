@@ -71,7 +71,8 @@ export class MessageItemComponent implements OnInit {
     if(this.redirectToSender){
      this.chatService.getPrivateChat(this.message.sender.id, this.userService.currentUser.id)
      .subscribe(r => {
-      this.userService.selectedChat = r;
+      console.log(r)
+      this.userService.setSelectedChat(r);
       this.forwardMessageEmmiter.emit(this.message);
       this.modal.dismissAll();
       return;

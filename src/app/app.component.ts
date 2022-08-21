@@ -3,7 +3,7 @@ import { MessageDto } from './../Dtos/MessageDto';
 import { ChatService } from './Services/ChatService';
 import { UserDto } from './../Dtos/UserDto';
 import { ChatDto } from './../Dtos/ChatDto';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, NgZone, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { concat, concatMap, VirtualTimeScheduler, } from 'rxjs';
 @Component({
@@ -23,10 +23,6 @@ export class AppComponent implements OnInit {
         this.chats = result;
         this.configureHub();
       });
-
-      
-      
-
   }
 
   configureHub(){
@@ -40,6 +36,7 @@ export class AppComponent implements OnInit {
     connection.on("MessageSent", (message : MessageDto) => {
       for(let i =0;i < this.chats.length;++i){
         if(this.chats[i].id === message.chatId){
+          console.log(this.chats[i].name)
           this.chats[i].messages.push(message);
         }
       }
