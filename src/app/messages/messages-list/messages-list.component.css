@@ -19,3 +19,13 @@
     margin-left: 10px;
     margin-right: 10px;
 }
+
+.forwarded-message{
+
+}
+
+.forwarded-from{
+    font-size:small;
+     font-weight:bold;
+     margin:0px
+}

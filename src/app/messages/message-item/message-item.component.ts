@@ -1,3 +1,5 @@
+import { NewMessageDto } from './../../../Dtos/NewMessageDto';
+import { UserService } from './../../Services/UserService';
 import { ChatService } from './../../Services/ChatService';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserDto } from './../../../Dtos/UserDto';
@@ -13,33 +15,32 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class MessageItemComponent implements OnInit {
 
   constructor(private fb : FormBuilder,
-     private chatService: ChatService, public modal: NgbModal)
+     private chatService: ChatService, public modal: NgbModal,
+     public readonly userService: UserService)
    { }
 
 
-   editeForm :any;
    isEditingMode = false;
-  onEdit(){
+   onEdit(){
     const editedText = this.editeForm.controls.editedMessage.value?.trim() || "";
     this.chatService.editMessage(this.message.id, editedText ).subscribe();
     this.isEditingMode = !this.isEditingMode;
   }
 
+  editeForm :any;
   ngOnInit(): void {
     this.editeForm = this.fb.group({
       editedMessage : [this.message.text || '', Validators.required]
      })
   }
 
+  
+
   openModal(content : any){
-    console.log(this.message.isDeletedOnlyForSender)
     this.modal.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
   @Input() message!: MessageDto;
-  @Input() currentUser!:UserDto;
-
-
 
   editSelectedMessage(){
     const newText = this.editeForm.controls.editedMessage.value || "";
@@ -62,5 +63,28 @@ export class MessageItemComponent implements OnInit {
   onChange(){
     this.deleteOnlyForCurrentUser = !this.deleteOnlyForCurrentUser;
   }
+
+  redirectToSender = true;
+  onRedirectionChange(){
+    this.redirectToSender = !this.redirectToSender;
+  }
+
+  onRedirect(){
+    if(this.redirectToSender){
+     this.chatService.getPrivateChat(this.message.sender.id, this.userService.currentUser.id)
+     .subscribe(r => {
+      this.userService.selectedChat = r;
+      this.forwardMessageEmmiter.emit(this.message);
+      this.modal.dismissAll();
+      return;
+    });
+    }
+
+    this.forwardMessageEmmiter.emit(this.message);
+    this.modal.dismissAll();
+    
+  }
+
+  @Output() forwardMessageEmmiter : EventEmitter<MessageDto> = new EventEmitter();
   
 }

@@ -1,3 +1,5 @@
+import { ChatsModule } from './../chats/chats.module';
+import { ChatItemComponent } from './../chats/chat-item/chat-item.component';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

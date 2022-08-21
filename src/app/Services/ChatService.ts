@@ -41,8 +41,11 @@ export class ChatService{
         return this.http.put(environment.editMessage, param);
     }
 
-
     public deleteMessage(id : number, isDeleteOnlyForSender = false){
         return this.http.delete(environment.delete + id +'/'+ isDeleteOnlyForSender);
+    }
+
+    public getPrivateChat(firstUserId: number, secondUserId: number){
+        return this.http.get<ChatDto>(environment.privateChat + `${firstUserId}/${secondUserId}`)
     }
 }

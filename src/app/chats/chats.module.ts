@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChatListComponent } from './chat-list/chat-list.component';
 import { ChatItemComponent } from './chat-item/chat-item.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ChatItemComponent } from './chat-item/chat-item.component';
   imports: [
     CommonModule,
     MessagesModule,
+    ReactiveFormsModule,
   ],
-  exports:[ChatListComponent]
+  exports:[ChatListComponent,ChatItemComponent]
 })
 export class ChatsModule { }

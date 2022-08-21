@@ -1,15 +1,22 @@
     
+   
     <div class="d-flex">
         <div class="chat-list-container">
-            <div *ngFor="let chatF of chats">
+            <div>
+                <form [formGroup]="searchForm">
+                    <input type="text" class="form-control" placeholder="Search..." (keyup.Enter)="onSearch()"
+                    formControlName="searchedChat"/>
+                </form>
+            </div>
+            <div *ngFor="let chatF of filteredChats.length === 0 ? chats : filteredChats">
                 <app-chat-item
                  [chat]="chatF" (chatSelectedEmitter)="chatSelectedHandler($event)"
-                 [currentUser]="currentUser">
+                 >
                 </app-chat-item>
            </div>
         </div>
        
         <div style="flex-grow:1">
-            <app-messages-list [chat]="selectedChat"  [currentUser]="currentUser"></app-messages-list>
+            <app-messages-list [chat]="userService.selectedChat" ></app-messages-list>
         </div>
     </div>

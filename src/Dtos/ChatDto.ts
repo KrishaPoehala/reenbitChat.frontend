@@ -7,4 +7,5 @@ export interface ChatDto{
     messages: MessageDto[],
     members: UserDto[],
     imageUrl: string,
+    isGroup : boolean | null,
 }

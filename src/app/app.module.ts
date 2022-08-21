@@ -1,4 +1,4 @@
-import { ChatListComponent } from './chats/chat-list/chat-list.component';
+import { UserService } from './Services/UserService';
 import { ChatsModule } from './chats/chats.module';
 import { ChatService } from './Services/ChatService';
 import { NgModule } from '@angular/core';
@@ -20,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     ChatsModule,
     HttpClientModule,
   ],
-  providers: [ChatService],
+  providers: [ChatService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

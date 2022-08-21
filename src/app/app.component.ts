@@ -1,3 +1,4 @@
+import { UserService } from './Services/UserService';
 import { MessageDto } from './../Dtos/MessageDto';
 import { ChatService } from './Services/ChatService';
 import { UserDto } from './../Dtos/UserDto';
@@ -11,18 +12,21 @@ import { concat, concatMap, VirtualTimeScheduler, } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private chatService: ChatService){}
+  constructor(private chatService: ChatService, public readonly userService : UserService){}
   ngOnInit(): void {
     this.chatService.getRandomUser().pipe(
       concatMap((result : UserDto) =>{
-        this.user = result;
+        this.userService.currentUser = result;
         return this.chatService.getUserChats(result.id);
       }))
       .subscribe(result => {
         this.chats = result;
         this.configureHub();
       });
+
       
+      
+
   }
 
   configureHub(){
@@ -37,6 +41,7 @@ export class AppComponent implements OnInit {
       for(let i =0;i < this.chats.length;++i){
         if(this.chats[i].id === message.chatId){
           this.chats[i].messages.push(message);
+          console.log(this.chats[i].messages.length);
         }
       }
     });
@@ -55,12 +60,14 @@ export class AppComponent implements OnInit {
 
     connection.on("MessageDeleted", (deletedMessage : MessageDto) => {
       for (let i = 0; i < this.chats.length; i++) {
-        if(this.chats[i].id == deletedMessage.chatId){
+        let index = 0;
+        if(this.chats[i].id === deletedMessage.chatId){
           this.chats[i].messages.forEach(element => {
             if(element.id === deletedMessage.id){
-              const index = this.chats[i].messages.indexOf(deletedMessage);
+              console.log(index);
               this.chats[i].messages.splice(index, 1);
             }
+            ++index;
           });
         }
       }
@@ -68,6 +75,5 @@ export class AppComponent implements OnInit {
   }
 
   title="dfdff"
-  public user!: UserDto;
   public chats: ChatDto[] = [];
 }
