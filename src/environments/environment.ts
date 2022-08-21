@@ -7,9 +7,9 @@ export const environment = {
   userChats: "https://localhost:7139/api/Chats/chats/",
   randomUser: "https://localhost:7139/api/Chats/randomUser",
   firstMessages: "https://localhost:7139/api/Chats/messages/",
-  sendMessage: "https://localhost:7139/api/Chats/send",
-  editMessage : "https://localhost:7139/api/Chats/edit",
-  delete:"https://localhost:7139/api/Chats/delete/",
+  sendMessage: "https://localhost:7139/api/Messages/send",
+  editMessage : "https://localhost:7139/api/Messages/edit",
+  delete:"https://localhost:7139/api/Messages/delete/",
   privateChat: "https://localhost:7139/api/Chats/privateChat/"
 };
 
