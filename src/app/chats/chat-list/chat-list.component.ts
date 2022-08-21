@@ -34,7 +34,6 @@ export class ChatListComponent implements OnInit {
     const value = this.searchForm.controls.searchedChat.value;
     if(!value){
       this.filteredChats = this.chats;
-      console.log(this.filteredChats);
       return;
     }
 

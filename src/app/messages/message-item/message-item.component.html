@@ -11,15 +11,15 @@
                 <span class="sender-name">{{message.sender.name}}</span>
             </div>
            <div class="message-text">
-            <p *ngIf="!isEditingMode">{{message.text}}</p>
-            <form *ngIf="isEditingMode" [formGroup]="editeForm">
-              <input formControlName="editedMessage" (keyup.enter)="onEdit()" 
-              type="text">
-            </form>
-            
-            <div class="sent-date">
-                {{message.sentAt | date: 'h:mm a'}}
-            </div>
+              <p *ngIf="!isEditingMode">{{message.text}}</p>
+              <form *ngIf="isEditingMode" [formGroup]="editeForm">
+                <input formControlName="editedMessage" (keyup.enter)="onEdit()" 
+                type="text">
+              </form>
+              
+              <div class="sent-date">
+                  {{message.sentAt | date: 'h:mm a'}}
+              </div>
           </div>
           </div>
         </div>

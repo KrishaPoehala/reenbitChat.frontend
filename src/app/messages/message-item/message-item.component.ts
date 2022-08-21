@@ -1,11 +1,9 @@
-import { NewMessageDto } from './../../../Dtos/NewMessageDto';
 import { UserService } from './../../Services/UserService';
 import { ChatService } from './../../Services/ChatService';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserDto } from './../../../Dtos/UserDto';
 import { MessageDto } from './../../../Dtos/MessageDto';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-message-item',
@@ -22,9 +20,11 @@ export class MessageItemComponent implements OnInit {
 
    isEditingMode = false;
    onEdit(){
-    const editedText = this.editeForm.controls.editedMessage.value?.trim() || "";
-    this.chatService.editMessage(this.message.id, editedText ).subscribe();
-    this.isEditingMode = !this.isEditingMode;
+    const editedText = this.editeForm.controls.editedMessage.value?.trim();
+    if(editedText){
+      this.chatService.editMessage(this.message.id, editedText ).subscribe();
+      this.isEditingMode = !this.isEditingMode;
+    }
   }
 
   editeForm :any;
@@ -33,8 +33,6 @@ export class MessageItemComponent implements OnInit {
       editedMessage : [this.message.text || '', Validators.required]
      })
   }
-
-  
 
   openModal(content : any){
     this.modal.open(content, {ariaLabelledBy: 'modal-basic-title'});

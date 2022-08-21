@@ -19,7 +19,6 @@ export class MessagesListComponent implements OnInit, AfterViewInit {
   
   ngOnInit(): void {
   }
-
    
   messageForm = this.fb.group({
     message: ['',Validators.required],
@@ -52,7 +51,6 @@ export class MessagesListComponent implements OnInit, AfterViewInit {
     if(text){
       if(this.forwardedMessage){
         const newForwardedMessage = this.toNewMessage(this.forwardedMessage);
-        console.log(this.userService.selectedChat);
         this.chatService.sendMessage(newForwardedMessage).subscribe();
         this.forwardedMessage = null;
       }

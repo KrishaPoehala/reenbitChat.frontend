@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
       for(let i =0;i < this.chats.length;++i){
         if(this.chats[i].id === message.chatId){
           this.chats[i].messages.push(message);
-          console.log(this.chats[i].messages.length);
         }
       }
     });
@@ -64,7 +63,6 @@ export class AppComponent implements OnInit {
         if(this.chats[i].id === deletedMessage.chatId){
           this.chats[i].messages.forEach(element => {
             if(element.id === deletedMessage.id){
-              console.log(index);
               this.chats[i].messages.splice(index, 1);
             }
             ++index;
