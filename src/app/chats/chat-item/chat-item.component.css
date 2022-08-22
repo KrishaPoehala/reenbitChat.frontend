@@ -1,12 +1,7 @@
-
-
-
-
 img{
     clip-path: circle();
     height: 50px;
 }
-
 
 .chat-container{
     overflow: hidden;
@@ -18,6 +13,14 @@ img{
     cursor:pointer;
     background-color:lightgray;
 }
+
+.active{
+    background-color: lightgray;
+}
+
+
+
+
 
 
 
