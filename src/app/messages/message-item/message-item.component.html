@@ -8,8 +8,8 @@
         </div>
           <div>
               <div>
-                <span class="sender-name"
-                [ngStyle]="{'flex-row-reverse':isCurrentUsersMessage()}">{{message.sender.name}}</span>
+                <p class="sender-name"
+                [ngClass]="{'text-end':isCurrentUsersMessage()}">{{message.sender.name}}</p>
             </div>
            <div [class.my-message-text]="isCurrentUsersMessage()"
            [class.message-text]="!isCurrentUsersMessage()">
@@ -19,7 +19,8 @@
                 type="text">
               </form>
               
-              <div class="sent-date">
+              <div class="sent-date"
+              [ngClass]="{'text-start':isCurrentUsersMessage()}">
                   {{message.sentAt | date: 'h:mm a'}}
               </div>
           </div>

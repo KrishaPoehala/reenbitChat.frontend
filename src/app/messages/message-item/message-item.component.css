@@ -7,6 +7,14 @@ img{
 .sender-name{
     color:red;
 }
+
+.text-start{
+    text-align: start;
+}
+.text-end{
+    text-align: end;
+}
+
 p{
     word-break: break-all;
     white-space: normal;
