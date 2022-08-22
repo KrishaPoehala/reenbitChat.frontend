@@ -16,7 +16,6 @@ export class ChatItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.chatService.getChatMessages(this.chat.id,this.userService.currentUser.id,0,20).subscribe(r => {
-      this.lastMessageText = r[r.length - 1]?.text || "";
       r.forEach(element => {
         this.chat.messages.push(element);
         
@@ -37,7 +36,6 @@ export class ChatItemComponent implements OnInit {
 
   displayedImageUrl!:string;
   displayedGroupName!:string;
-  lastMessageText = "";
   getUserOnTheOtherSide(){
     let userOnTheOtherSide :UserDto | null = null;
       for(let i = 0; i< this.chat.members.length;++i){
