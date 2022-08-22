@@ -1,4 +1,4 @@
-import { ChatService } from './../Services/ChatService';
+import { ChatService } from 'src/Services/ChatService';
 import { MessagesModule } from './../messages/messages.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

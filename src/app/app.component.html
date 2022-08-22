@@ -1,20 +1,18 @@
 
 <div class="d-flex justify-content-between border-bottom">
     <div class="d-flex justify-content-end m-2 p-2">
-        <img src="{{userService.currentUser?.profilePhotoUrl}}" alt="photo" style="width:40px; clip-path: circle();">
+        <img src="{{userService.currentUser.profilePhotoUrl}}" alt="photo" style="width:40px; clip-path: circle();">
         <div>
-            <p>{{userService.currentUser?.name}}</p>
+            <p>{{userService.currentUser.name}}</p>
         </div>
     </div>
     <div class="d-flex  m-2 p-2">
-        <img src="{{userService.selectedChat?.imageUrl}}" alt="photo" style="width:40px; clip-path: circle();">
+        <img src="{{userService.selectedChat.imageUrl}}" alt="photo" style="width:40px; clip-path: circle();">
         <div>
-            <p>{{userService.selectedChat?.name}}</p>
+            <p>{{userService.selectedChat.name}}</p>
         </div>
     </div>
 </div>
-
-
 
 <app-chat-list [chats]="chats"></app-chat-list>
 

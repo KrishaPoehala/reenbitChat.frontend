@@ -1,9 +1,8 @@
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserService } from './../../Services/UserService';
 import { UserDto } from './../../../Dtos/UserDto';
-import { ChatService } from './../../Services/ChatService';
 import { Component, Input, OnInit, HostListener } from '@angular/core';
 import { ChatDto } from 'src/Dtos/ChatDto';
+import { UserService } from 'src/Services/UserService';
 
 @Component({
   selector: 'app-chat-list',
@@ -21,11 +20,6 @@ export class ChatListComponent implements OnInit {
 
   @Input() chats!: ChatDto[];
   filteredChats : ChatDto[] = [];
-  chatSelectedHandler(eventData: ChatDto){ 
-    this.userService.setSelectedChat(eventData);
-       
-  }
-
   searchForm = this.fb.group({
     searchedChat : ["",Validators.required],
   })

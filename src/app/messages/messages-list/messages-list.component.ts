@@ -1,10 +1,8 @@
-import { UserService } from './../../Services/UserService';
+import { UserService } from 'src/Services/UserService';
 import { NewMessageDto } from './../../../Dtos/NewMessageDto';
-import { ChatService } from './../../Services/ChatService';
-import { ChatDto } from './../../../Dtos/ChatDto';
+import { ChatService } from 'src/Services/ChatService';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserDto } from 'src/Dtos/UserDto';
 import { MessageDto } from 'src/Dtos/MessageDto';
 
 @Component({
@@ -24,24 +22,24 @@ export class MessagesListComponent implements OnInit, AfterViewInit {
   messageForm = this.fb.group({
     message: ['',Validators.required],
 });
-  @Input() chat!:ChatDto | null;
+  //@Input() chat :ChatDto | null = null;
   forwardedMessage:MessageDto | null = null;
   forwardMessageHandler(eventData: MessageDto){
     this.forwardedMessage = eventData;
   }
 
   deleteForSenderHandler(event : number){
-    const length = this.chat?.messages?.length || 0;
+    const length = this.userService.selectedChat?.messages?.length || 0;
     for(let i =0; i< length; ++i){
-      if(this.chat?.messages[i].id === event){
-        this.chat.messages.splice(i , 1);
+      if(this.userService.selectedChat?.messages[i].id === event){
+        this.userService.selectedChat.messages.splice(i , 1);
         return;
       }
     }
   }
 
   send(){
-    if(!this.chat){
+    if(!this.userService.selectedChat){
       return;
     }
     if(this.messageForm.invalid){
@@ -56,7 +54,8 @@ export class MessagesListComponent implements OnInit, AfterViewInit {
         this.forwardedMessage = null;
       }
 
-      let newMessage = new NewMessageDto(text,this.userService.currentUser,this.chat?.id, new Date());
+      let newMessage = new NewMessageDto(text,this.userService.currentUser,
+        this.userService.selectedChat?.id, new Date());
       this.chatService.sendMessage(newMessage).subscribe();
       this.messageForm.controls.message.setValue('');
       this.scrollToBottom();
@@ -73,7 +72,7 @@ export class MessagesListComponent implements OnInit, AfterViewInit {
   isWorking = false;
   onScroll(event :any){
     ++this.callsCount;
-    if(!this.chat || this.callsCount === 1){
+    if(!this.userService.selectedChat || this.callsCount === 1){
       return;
     }
 
@@ -81,14 +80,14 @@ export class MessagesListComponent implements OnInit, AfterViewInit {
     if(top === 0 && this.isWorking === false){
       this.isWorking = true;
       this.scrollFrame.nativeElement.scrollTop = 100;
-      const page = Math.floor(this.chat.messages.length / this.messagesToLoad) + 1;
-      this.chatService.getChatMessages(this.chat.id, this.userService.currentUser.id, page, this.messagesToLoad)
+      const page = Math.floor(this.userService.selectedChat.messages.length / this.messagesToLoad) + 1;
+      this.chatService.getChatMessages(this.userService.selectedChat.id, this.userService.currentUser.id, page, this.messagesToLoad)
       .subscribe(r =>{
         if(r.length === 0){
           return;
         }
           r.forEach(element => {
-          this.chat?.messages.unshift(element);
+          this.userService.selectedChat?.messages.unshift(element);
           })});
       setTimeout(() => this.isWorking = false, 600);//forbid to call this method too many times
     }

@@ -1,9 +1,10 @@
-import { UserService } from './../../Services/UserService';
-import { ChatService } from './../../Services/ChatService';
+import { ChatDto } from './../../../Dtos/ChatDto';
+import { UserService } from 'src/Services/UserService';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageDto } from './../../../Dtos/MessageDto';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ChatService } from 'src/Services/ChatService';
 
 @Component({
   selector: 'app-message-item',
@@ -22,7 +23,7 @@ export class MessageItemComponent implements OnInit {
    onEdit(){
     const editedText = this.editeForm.controls.editedMessage.value?.trim();
     if(editedText){
-      this.chatService.editMessage(this.message.id, editedText ).subscribe();
+      this.chatService.editMessage(this.message?.id || 0, editedText ).subscribe();
       this.isEditingMode = !this.isEditingMode;
     }
   }
@@ -30,8 +31,11 @@ export class MessageItemComponent implements OnInit {
   editeForm :any;
   ngOnInit(): void {
     this.editeForm = this.fb.group({
-      editedMessage : [this.message.text || '', Validators.required]
+      editedMessage : [this.message?.text || '', Validators.required]
      })
+
+     this.chatService.getPrivateChat(this.message.sender.id, this.userService.currentUser.id)
+     .subscribe(r => this.privateChat = r);
   }
 
   openModal(content : any){
@@ -42,7 +46,7 @@ export class MessageItemComponent implements OnInit {
 
   editSelectedMessage(){
     const newText = this.editeForm.controls.editedMessage.value || "";
-    this.chatService.editMessage(this.message.id, newText)
+    this.chatService.editMessage(this.message?.id || 0, newText)
     .subscribe();
   }
 
@@ -50,7 +54,7 @@ export class MessageItemComponent implements OnInit {
   onDelete(){
     
     this.modal.dismissAll();
-    this.chatService.deleteMessage(this.message?.id || 0, this.deleteOnlyForCurrentUser)
+    this.chatService.deleteMessage(this.message.id || 0, this.deleteOnlyForCurrentUser)
     .subscribe();
     if(this.deleteOnlyForCurrentUser){
       this.deleteForSenderEmmiter.emit(this.message.id);
@@ -67,21 +71,21 @@ export class MessageItemComponent implements OnInit {
     this.redirectToSender = !this.redirectToSender;
   }
 
+  privateChat!: ChatDto
   onRedirect(){
     if(this.redirectToSender){
-     this.chatService.getPrivateChat(this.message.sender.id, this.userService.currentUser.id)
-     .subscribe(r => {
-      console.log(r)
-      this.userService.setSelectedChat(r);
-      this.forwardMessageEmmiter.emit(this.message);
-      this.modal.dismissAll();
-      return;
-    });
+      for(let i = 0; i < this.userService.chats.length; ++i){
+         if(this.userService.chats[i].id == this.privateChat.id){
+           this.userService.setSelectedChat(this.userService.chats[i]);
+           //privateChat has come from the api
+           //so is has different reference so angular cannot track the changes of it (or smth like that).
+           // that's why this cycle is needed.
+         }
+        }
     }
 
     this.forwardMessageEmmiter.emit(this.message);
-    this.modal.dismissAll();
-    
+    this.modal.dismissAll(); 
   }
 
   @Output() forwardMessageEmmiter : EventEmitter<MessageDto> = new EventEmitter();

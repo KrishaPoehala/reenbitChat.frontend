@@ -1,8 +1,8 @@
-import { UserService } from './../../Services/UserService';
 import { UserDto } from './../../../Dtos/UserDto';
-import { ChatService } from './../../Services/ChatService';
 import { ChatDto } from './../../../Dtos/ChatDto';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChatService } from 'src/Services/ChatService';
+import { UserService } from 'src/Services/UserService';
 
 @Component({
   selector: 'app-chat-item',
@@ -28,10 +28,8 @@ export class ChatItemComponent implements OnInit {
 
   messagesToLoad = 20;
   @Input() chat!: ChatDto;
-  @Output() chatSelectedEmitter: EventEmitter<ChatDto> = new EventEmitter();
-
   onClick(){
-    this.chatSelectedEmitter.emit(this.chat);
+    this.userService.setSelectedChat(this.chat);
   }
 
   displayedImageUrl!:string;

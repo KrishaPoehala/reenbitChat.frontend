@@ -10,13 +10,13 @@
             </div>
             <div *ngFor="let chatF of filteredChats.length === 0 ? chats : filteredChats">
                 <app-chat-item
-                 [chat]="chatF" (chatSelectedEmitter)="chatSelectedHandler($event)"
+                 [chat]="chatF"
                  >
                 </app-chat-item>
            </div>
         </div>
        
         <div style="flex-grow:1">
-            <app-messages-list [chat]="userService.selectedChat" ></app-messages-list>
+            <app-messages-list ></app-messages-list>
         </div>
-    </div>
+    </div> 

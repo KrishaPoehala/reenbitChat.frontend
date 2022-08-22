@@ -1,6 +1,6 @@
-import { UserService } from './Services/UserService';
+import { UserService } from 'src/Services/UserService';
 import { MessageDto } from './../Dtos/MessageDto';
-import { ChatService } from './Services/ChatService';
+import { ChatService } from 'src/Services/ChatService';
 import { UserDto } from './../Dtos/UserDto';
 import { ChatDto } from './../Dtos/ChatDto';
 import { ChangeDetectorRef, Component, HostListener, NgZone, OnInit } from '@angular/core';
@@ -21,6 +21,8 @@ export class AppComponent implements OnInit {
       }))
       .subscribe(result => {
         this.chats = result;
+        this.userService.chats = this.chats;
+        this.userService.selectedChat = this.chats[0];
         this.configureHub();
       });
   }

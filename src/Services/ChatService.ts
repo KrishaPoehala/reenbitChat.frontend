@@ -1,10 +1,11 @@
-import { NewMessageDto } from './../../Dtos/NewMessageDto';
-import { MessageDto } from './../../Dtos/MessageDto';
-import { environment } from './../../environments/environment';
-import { ChatDto } from './../../Dtos/ChatDto';
+
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { UserDto } from 'src/Dtos/UserDto';
+import { ChatDto } from "src/Dtos/ChatDto";
+import { environment } from "src/environments/environment";
+import { MessageDto } from "src/Dtos/MessageDto";
+import { NewMessageDto } from "src/Dtos/NewMessageDto";
 
 @Injectable()
 export class ChatService{
