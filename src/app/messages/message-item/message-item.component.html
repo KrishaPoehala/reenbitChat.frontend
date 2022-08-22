@@ -1,16 +1,18 @@
 
 <div>
-    <div class="m-2 p-2 d-flex justify-content-between">
-      <div class="d-flex">
+    <div class="m-2 p-2 d-flex justify-content-between"
+     [ngClass]="{'flex-row-reverse':isCurrentUsersMessage()}">
+      <div class="d-flex"  [ngClass]="{'flex-row-reverse':isCurrentUsersMessage()}">
         <div>
           <img src="{{message.sender.profilePhotoUrl}}" alt="">
         </div>
-              
           <div>
               <div>
-                <span class="sender-name">{{message.sender.name}}</span>
+                <span class="sender-name"
+                [ngStyle]="{'flex-row-reverse':isCurrentUsersMessage()}">{{message.sender.name}}</span>
             </div>
-           <div class="message-text">
+           <div [class.my-message-text]="isCurrentUsersMessage()"
+           [class.message-text]="!isCurrentUsersMessage()">
               <p *ngIf="!isEditingMode">{{message.text}}</p>
               <form *ngIf="isEditingMode" [formGroup]="editeForm">
                 <input formControlName="editedMessage" (keyup.enter)="onEdit()" 

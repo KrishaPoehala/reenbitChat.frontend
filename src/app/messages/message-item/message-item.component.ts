@@ -66,6 +66,10 @@ export class MessageItemComponent implements OnInit {
     this.deleteOnlyForCurrentUser = !this.deleteOnlyForCurrentUser;
   }
 
+  isCurrentUsersMessage(){
+    return this.message.sender.id === this.userService.currentUser.id
+  }
+
   redirectToSender = true;
   onRedirectionChange(){
     this.redirectToSender = !this.redirectToSender;

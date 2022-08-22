@@ -1,5 +1,5 @@
 
-<div *ngIf="userService.selectedChat.messages.length === 0" class="center-label">
+<div *ngIf="userService.selectedChat?.messages?.length === 0" class="center-label">
     <h2>Nothing here yet...</h2>
 </div>
 
@@ -7,7 +7,7 @@
     <div class="messages-container d-flex flex-column justify-content-start"
     #scrollframe (scroll)="onScroll($event)">
         <div
-            *ngFor="let messageF of userService.selectedChat.messages" #item>
+            *ngFor="let messageF of userService.selectedChat?.messages" #item>
             <app-message-item [message]="messageF"
             (deleteForSenderEmmiter)="deleteForSenderHandler($event)"
             (forwardMessageEmmiter)="forwardMessageHandler($event)">

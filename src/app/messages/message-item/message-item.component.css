@@ -11,14 +11,22 @@ p{
     word-break: break-all;
     white-space: normal;
 }
-.message-text{
+.my-message-text{
+    background-color: coral;
+}
+
+.message-text, .my-message-text{
     min-width: 100px;
     text-overflow:clip;
     max-width: 500px;
-    background-color: lightcyan;
+    
     padding: 4px;
     border-radius: 4px;
     font-size:14px;
+}
+
+.message-text{
+    background-color: lightcyan;
 }
 
 .selected-message{
