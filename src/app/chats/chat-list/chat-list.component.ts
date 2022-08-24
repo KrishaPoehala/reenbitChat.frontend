@@ -31,6 +31,15 @@ export class ChatListComponent implements OnInit {
       return;
     }
 
-    this.filteredChats = this.chats.filter(x => x.name.includes(value));
+    this.filteredChats = this.chats.filter(x => this.selectSearchesValue(x).includes(value ));
+  }
+
+  selectSearchesValue(x : ChatDto) : string{
+    if(x.name){
+      return x.name;
+    }
+
+    var otherMemberName = x.members.filter(x => x.id !== this.userService.currentUser.id)[0];
+    return otherMemberName.name;
   }
 }
