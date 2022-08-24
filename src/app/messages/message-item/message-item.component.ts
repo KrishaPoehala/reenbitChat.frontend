@@ -90,7 +90,9 @@ export class MessageItemComponent implements OnInit {
   }
 
   onMessageTextClicked(){
-    this.redirectToPrivateChat(this.privateChat?.id || -1);
+    if(this.userService.currentUser.id !== this.message.sender.id){
+      this.redirectToPrivateChat(this.privateChat?.id || -1);
+    }
   }
 
   onRedirect(){
