@@ -8,6 +8,11 @@ img{
     color:red;
 }
 
+.sender-name:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .text-start{
     text-align: start;
 }

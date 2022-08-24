@@ -76,24 +76,28 @@ export class MessageItemComponent implements OnInit {
   }
 
   privateChat: ChatDto | null = null;
-  onRedirect(){
-    if(this.redirectToSender){
+  redirectToPrivateChat(privateChatId: number){
       for(let i = 0; i < this.userService.chats.length; ++i){
-         if(this.userService.chats[i].id == this.privateChat?.id){
+         if(this.userService.chats[i].id == privateChatId){
            this.userService.setSelectedChat(this.userService.chats[i]);
-           this.forwardMessageEmmiter.emit(this.message);
-           this.modal.dismissAll(); 
+          
            return;
-           //privateChat has come from the api
-           //so is has different reference so angular cannot track the changes of it (or smth like that).
-           // that's why this cycle is needed.
          }
       }
 
       this.chatService.createPrivateChat(this.userService.currentUser.id, this.message.sender.id)
       .subscribe(r => this.userService.setSelectedChat(r));
-    }
+  }
 
+  onMessageTextClicked(){
+    this.redirectToPrivateChat(this.privateChat?.id || -1);
+  }
+
+  onRedirect(){
+    if(this.redirectToSender){
+      this.redirectToPrivateChat(this.privateChat?.id || -1);
+
+    }
     this.forwardMessageEmmiter.emit(this.message);
     this.modal.dismissAll(); 
   }
