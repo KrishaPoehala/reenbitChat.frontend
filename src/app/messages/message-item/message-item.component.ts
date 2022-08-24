@@ -35,7 +35,7 @@ export class MessageItemComponent implements OnInit {
      })
 
      this.chatService.getPrivateChat(this.message.sender.id, this.userService.currentUser.id)
-     .subscribe(r => this.privateChat = r);
+     .subscribe(r => this.privateChat = r, error => this.privateChat = null);
   }
 
   openModal(content : any){
@@ -75,17 +75,23 @@ export class MessageItemComponent implements OnInit {
     this.redirectToSender = !this.redirectToSender;
   }
 
-  privateChat!: ChatDto
+  privateChat: ChatDto | null = null;
   onRedirect(){
     if(this.redirectToSender){
       for(let i = 0; i < this.userService.chats.length; ++i){
-         if(this.userService.chats[i].id == this.privateChat.id){
+         if(this.userService.chats[i].id == this.privateChat?.id){
            this.userService.setSelectedChat(this.userService.chats[i]);
+           this.forwardMessageEmmiter.emit(this.message);
+           this.modal.dismissAll(); 
+           return;
            //privateChat has come from the api
            //so is has different reference so angular cannot track the changes of it (or smth like that).
            // that's why this cycle is needed.
          }
-        }
+      }
+
+      this.chatService.createPrivateChat(this.userService.currentUser.id, this.message.sender.id)
+      .subscribe(r => this.userService.setSelectedChat(r));
     }
 
     this.forwardMessageEmmiter.emit(this.message);

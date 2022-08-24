@@ -6,6 +6,7 @@ import { ChatDto } from "src/Dtos/ChatDto";
 import { environment } from "src/environments/environment";
 import { MessageDto } from "src/Dtos/MessageDto";
 import { NewMessageDto } from "src/Dtos/NewMessageDto";
+import { first } from "rxjs";
 
 @Injectable()
 export class ChatService{
@@ -48,5 +49,13 @@ export class ChatService{
 
     public getPrivateChat(firstUserId: number, secondUserId: number){
         return this.http.get<ChatDto>(environment.privateChat + `${firstUserId}/${secondUserId}`)
+    }
+
+    public createPrivateChat(firstId: number, secondId: number){
+        const dto = {
+            firstUserId : firstId,
+            secondUserId : secondId,
+        }
+        return this.http.post<ChatDto>(environment.createPrivateChat, dto);
     }
 }

@@ -69,6 +69,18 @@ export class AppComponent implements OnInit {
         }
       }
     })
+
+    connection.on("ChatCreated", (createdChat: ChatDto) => {
+      for (let i = 0; i < createdChat.members.length; i++) {
+        const element = createdChat.members[i];
+        if(element.id === this.userService.currentUser.id){
+          this.chats.push(createdChat);
+          console.log(createdChat);
+          connection.invoke("JoinGroup", createdChat.id.toString());
+        }
+        
+      }
+    })
   }
 
   title="dfdff"

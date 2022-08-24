@@ -15,7 +15,15 @@ export class UserService{
     public selectedChat! : ChatDto;
     public currentUser! : UserDto;
     public chats!: ChatDto[];
-    setSelectedChat(dto : ChatDto){
-        this.selectedChat = dto;
+    setSelectedChat(chat : ChatDto){
+        for (let i = 0; i < this.chats.length; i++) {
+            const element = this.chats[i];
+            if(element.id === chat.id){
+                this.selectedChat = this.chats[i];
+            }
+            
+        }
     }
+
+    
 }

@@ -10,7 +10,8 @@ export const environment = {
   sendMessage: "https://localhost:7139/api/Messages/send",
   editMessage : "https://localhost:7139/api/Messages/edit",
   delete:"https://localhost:7139/api/Messages/delete/",
-  privateChat: "https://localhost:7139/api/Chats/privateChat/"
+  privateChat: "https://localhost:7139/api/Chats/privateChat/",
+  createPrivateChat: "https://localhost:7139/api/Chats/privateChat/create",
 };
 
 /*
