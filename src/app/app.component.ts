@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment';
 import { UserService } from 'src/Services/UserService';
 import { MessageDto } from './../Dtos/MessageDto';
 import { HttpService } from 'src/Services/HttpService';
@@ -29,7 +30,7 @@ export class AppComponent implements OnInit {
   }
 
   configureHub(){
-    const connection = new HubConnectionBuilder().withUrl('https://localhost:7139/chat').build();
+    const connection = new HubConnectionBuilder().withUrl(environment.signalR).build();
     connection.start().then(() =>{
       this.chats.forEach(element => {
         connection.invoke("JoinGroup",element.id.toString());

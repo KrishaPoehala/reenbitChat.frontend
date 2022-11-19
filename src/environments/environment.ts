@@ -13,6 +13,7 @@ export const environment = {
   privateChat: "https://localhost:7139/api/Chats/privateChat/",
   createPrivateChat: "https://localhost:7139/api/Chats/privateChat/create",
   login: "https://localhost:7139/api/Accounts/login",
+  signalR: "https://localhost:7139/chat",
 };
 
 /*
