@@ -12,6 +12,7 @@ export const environment = {
   delete:"https://localhost:7139/api/Messages/delete/",
   privateChat: "https://localhost:7139/api/Chats/privateChat/",
   createPrivateChat: "https://localhost:7139/api/Chats/privateChat/create",
+  login: "https://localhost:7139/api/Accounts/login",
 };
 
 /*

@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MessageDto } from './../../../Dtos/MessageDto';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ChatService } from 'src/Services/ChatService';
+import { HttpService } from 'src/Services/HttpService';
 
 @Component({
   selector: 'app-message-item',
@@ -14,7 +14,7 @@ import { ChatService } from 'src/Services/ChatService';
 export class MessageItemComponent implements OnInit {
 
   constructor(private fb : FormBuilder,
-     private chatService: ChatService, public modal: NgbModal,
+     private chatService: HttpService, public modal: NgbModal,
      public readonly userService: UserService)
    { }
 
@@ -78,9 +78,8 @@ export class MessageItemComponent implements OnInit {
   privateChat: ChatDto | null = null;
   redirectToPrivateChat(privateChatId: number){
       for(let i = 0; i < this.userService.chats.length; ++i){
-         if(this.userService.chats[i].id == privateChatId){
+         if(this.userService.chats[i].id === privateChatId){
            this.userService.setSelectedChat(this.userService.chats[i]);
-          
            return;
          }
       }

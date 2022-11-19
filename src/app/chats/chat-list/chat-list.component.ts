@@ -15,10 +15,10 @@ export class ChatListComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
+    this.chats = this.userService.chats;
   }
 
-  @Input() chats!: ChatDto[];
+  chats!: ChatDto[];
   filteredChats : ChatDto[] = [];
   searchForm = this.fb.group({
     searchedChat : ["",Validators.required],
@@ -31,7 +31,7 @@ export class ChatListComponent implements OnInit {
       return;
     }
 
-    this.filteredChats = this.chats.filter(x => this.selectSearchesValue(x).includes(value ));
+    this.filteredChats = this.chats.filter(x => this.selectSearchesValue(x).includes(value));
   }
 
   selectSearchesValue(x : ChatDto) : string{
@@ -40,6 +40,6 @@ export class ChatListComponent implements OnInit {
     }
 
     var otherMemberName = x.members.filter(x => x.id !== this.userService.currentUser.id)[0];
-    return otherMemberName.name;
+    return otherMemberName.userName;
   }
 }

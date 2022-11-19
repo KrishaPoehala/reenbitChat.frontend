@@ -1,6 +1,6 @@
 import { UserService } from 'src/Services/UserService';
 import { NewMessageDto } from './../../../Dtos/NewMessageDto';
-import { ChatService } from 'src/Services/ChatService';
+import { HttpService } from 'src/Services/HttpService';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageDto } from 'src/Dtos/MessageDto';
@@ -13,7 +13,7 @@ import { MessageDto } from 'src/Dtos/MessageDto';
 })
 export class MessagesListComponent implements OnInit, AfterViewInit {
 
-  constructor(private fb:FormBuilder, private chatService: ChatService,
+  constructor(private fb:FormBuilder, private chatService: HttpService,
     public readonly userService: UserService) { }
   
   ngOnInit(): void {

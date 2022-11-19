@@ -1,3 +1,4 @@
+import { AuthRepsonseDto } from './../Dtos/AuthResponseDto';
 
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -9,7 +10,7 @@ import { NewMessageDto } from "src/Dtos/NewMessageDto";
 import { first } from "rxjs";
 
 @Injectable()
-export class ChatService{
+export class HttpService{
 
     constructor(private http: HttpClient){}
     public getUserChats(id:number){
@@ -57,5 +58,9 @@ export class ChatService{
             secondUserId : secondId,
         }
         return this.http.post<ChatDto>(environment.createPrivateChat, dto);
+    }
+
+    public login(email:string, password: string){
+        return this.http.post<AuthRepsonseDto>(environment.login, {email, password});
     }
 }

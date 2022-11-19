@@ -9,8 +9,7 @@
           <div>
               <div>
                 <p class="sender-name" (click)="onMessageTextClicked()"
-                [ngClass]="{'text-end':isCurrentUsersMessage()}">{{message.sender.name}}
-             
+                [ngClass]="{'text-end':isCurrentUsersMessage()}">{{message.sender.userName}}
             </p>
             </div>
            <div [class.my-message-text]="isCurrentUsersMessage()"

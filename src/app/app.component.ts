@@ -1,6 +1,6 @@
 import { UserService } from 'src/Services/UserService';
 import { MessageDto } from './../Dtos/MessageDto';
-import { ChatService } from 'src/Services/ChatService';
+import { HttpService } from 'src/Services/HttpService';
 import { UserDto } from './../Dtos/UserDto';
 import { ChatDto } from './../Dtos/ChatDto';
 import { ChangeDetectorRef, Component, HostListener, NgZone, OnInit } from '@angular/core';
@@ -12,10 +12,11 @@ import { concat, concatMap, VirtualTimeScheduler, } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private chatService: ChatService, public readonly userService : UserService){}
+  constructor(private chatService: HttpService, public readonly userService : UserService){}
   ngOnInit(): void {
     this.chatService.getRandomUser().pipe(
       concatMap((result : UserDto) =>{
+        console.log(result + " DDDDDDDDDDDDDD");
         this.userService.currentUser = result;
         return this.chatService.getUserChats(result.id);
       }))
@@ -38,7 +39,7 @@ export class AppComponent implements OnInit {
     connection.on("MessageSent", (message : MessageDto) => {
       for(let i =0;i < this.chats.length;++i){
         if(this.chats[i].id === message.chatId){
-          console.log(this.chats[i].name)
+         // console.log(this.chats[i].name)
           this.chats[i].messages.push(message);
         }
       }

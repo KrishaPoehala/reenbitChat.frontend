@@ -1,4 +1,4 @@
-import { ChatService } from 'src/Services/ChatService';
+import { HttpService } from 'src/Services/HttpService';
 import { MessagesModule } from './../messages/messages.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     MessagesModule,
     ReactiveFormsModule,
-  ],
+  ] ,
   exports:[ChatListComponent,ChatItemComponent]
 })
 export class ChatsModule { }

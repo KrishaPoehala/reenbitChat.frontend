@@ -1,7 +1,7 @@
 import { UserDto } from './../../../Dtos/UserDto';
 import { ChatDto } from './../../../Dtos/ChatDto';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ChatService } from 'src/Services/ChatService';
+import { HttpService } from 'src/Services/HttpService';
 import { UserService } from 'src/Services/UserService';
 
 @Component({
@@ -11,7 +11,7 @@ import { UserService } from 'src/Services/UserService';
 })
 export class ChatItemComponent implements OnInit {
 
-  constructor(private chatService: ChatService,
+  constructor(private chatService: HttpService,
     public readonly userService : UserService) { }
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class ChatItemComponent implements OnInit {
   setDisplayedValues(){
     if(this.chat?.isGroup === false){
       const userOnTheOtherSide = this.getUserOnTheOtherSide();
-      this.displayedGroupName = userOnTheOtherSide?.name || "";
+      this.displayedGroupName = userOnTheOtherSide?.userName || "";
       this.displayedImageUrl = userOnTheOtherSide?.profilePhotoUrl || "";
       return;
     }
