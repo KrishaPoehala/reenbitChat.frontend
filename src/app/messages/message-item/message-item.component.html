@@ -9,8 +9,8 @@
           <div>
               <div>
                 <p class="sender-name" (click)="onMessageTextClicked()"
-                [ngClass]="{'text-end':isCurrentUsersMessage()}">{{message.sender.userName}}
-            </p>
+                [ngClass]="{'text-end':isCurrentUsersMessage()}">{{message.sender.name}}
+                </p>
             </div>
            <div [class.my-message-text]="isCurrentUsersMessage()"
            [class.message-text]="!isCurrentUsersMessage()">
@@ -35,13 +35,13 @@
                     </svg>
                   </button>
                   <button class="btn btn-outline-dark btn-sm icon" 
-                   (click)="openModal(deleteContent)">
+                   (click)="deleteMessageModal()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive-fill" viewBox="0 0 16 16">
                         <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/>
                     </svg>
                 </button>
             </div>
-              <button  class="btn btn-outline-dark btn-sm icon" (click)="modal.open(redirectContent)"
+              <button  class="btn btn-outline-dark btn-sm icon" (click)="forwardMessageModal()"
               *ngIf="userService.selectedChat?.isGroup === null && 
               userService.currentUser.id !== message?.sender?.id">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-right" viewBox="0 0 16 16">
@@ -52,42 +52,3 @@
     </div>
 </div>
 
-
-<ng-template #deleteContent let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Delete message</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="mb-3">
-        <p>Do you want delete this message only for you?</p>
-        <span>Delete only for me: </span>
-        <input type="checkbox" class="form-check-input" (change)="onChange()">
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-danger" (click)="onDelete()">Delete</button>
-  </div>
-</ng-template>
-
-<ng-template #redirectContent let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Redirection menu</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="mb-3">
-        <p>Redirect to : </p>
-         Sender: <input type="radio" name="redirection" (change)="onRedirectionChange()" checked/>
-         <div></div>
-         Group: <input type="radio" name="redirection" (change)="onRedirectionChange()"/>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-primary" (click)="onRedirect()">Redirect</button>
-  </div>
-</ng-template>

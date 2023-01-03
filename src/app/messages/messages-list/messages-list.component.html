@@ -19,7 +19,7 @@
 <div *ngIf="userService.selectedChat">
     <form [formGroup]="messageForm" class="input-message" >
         <div *ngIf="forwardedMessage !== null" class="forwarded-message">
-            <p class="forwarded-from">forwarded from {{forwardedMessage.sender.userName}}</p>
+            <p class="forwarded-from">forwarded from {{forwardedMessage.sender.name}}</p>
             <div>{{forwardedMessage.text}}</div>
         </div>
         <textarea (keyup.enter)="send()" type="text" class="form-control" placeholder="Message..."

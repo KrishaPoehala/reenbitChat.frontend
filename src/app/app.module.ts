@@ -14,6 +14,8 @@ import { UserService } from 'src/Services/UserService';
 import { Routes, RouterModule } from '@angular/router';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { DeleteMessageModalComponent } from './delete-message-modal/delete-message-modal.component';
+import { EditMessageModalComponent } from './edit-message-modal/edit-message-modal.component';
 
 const appRoutes :Routes = [
   {path:'', component : ChatListComponent},
@@ -23,6 +25,8 @@ const appRoutes :Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    DeleteMessageModalComponent,
+    EditMessageModalComponent,
   ],
   imports: [
     //RouterModule.forRoot(appRoutes),

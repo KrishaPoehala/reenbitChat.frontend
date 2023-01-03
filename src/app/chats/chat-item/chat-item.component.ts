@@ -46,7 +46,7 @@ export class ChatItemComponent implements OnInit {
   setDisplayedValues(){
     if(this.chat?.isGroup === false){
       const userOnTheOtherSide = this.getUserOnTheOtherSide();
-      this.displayedGroupName = userOnTheOtherSide?.userName || "";
+      this.displayedGroupName = userOnTheOtherSide?.name || "";
       this.displayedImageUrl = userOnTheOtherSide?.profilePhotoUrl || "";
       return;
     }

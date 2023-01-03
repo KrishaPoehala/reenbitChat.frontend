@@ -40,6 +40,6 @@ export class ChatListComponent implements OnInit {
     }
 
     var otherMemberName = x.members.filter(x => x.id !== this.userService.currentUser.id)[0];
-    return otherMemberName.userName;
+    return otherMemberName.name;
   }
 }

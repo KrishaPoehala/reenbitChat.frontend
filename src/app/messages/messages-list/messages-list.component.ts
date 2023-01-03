@@ -22,7 +22,7 @@ export class MessagesListComponent implements OnInit, AfterViewInit {
   messageForm = this.fb.group({
     message: ['',Validators.required],
 });
-  //@Input() chat :ChatDto | null = null;
+
   forwardedMessage:MessageDto | null = null;
   forwardMessageHandler(eventData: MessageDto){
     this.forwardedMessage = eventData;
@@ -89,6 +89,7 @@ export class MessagesListComponent implements OnInit, AfterViewInit {
           r.forEach(element => {
           this.userService.selectedChat?.messages.unshift(element);
           })});
+
       setTimeout(() => this.isWorking = false, 600);//forbid to call this method too many times
     }
   }

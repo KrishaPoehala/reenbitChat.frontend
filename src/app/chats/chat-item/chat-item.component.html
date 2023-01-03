@@ -7,6 +7,8 @@
         </div>
         <div>
             <p>{{displayedGroupName}}</p>
+            <span style="text-overflow:ellipsis" *ngIf="chat.messages.length !== 0">
+                {{chat.messages[chat.messages.length - 1].sender.name}} :</span>
             <span style="text-overflow:ellipsis;" *ngIf="chat.messages.length !== 0">
                 {{chat.messages[chat.messages.length - 1].text}}</span>
         </div>

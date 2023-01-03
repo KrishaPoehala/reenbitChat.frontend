@@ -1,3 +1,4 @@
+import { NewChatDto } from './../Dtos/NewChatDto';
 import { AuthRepsonseDto } from './../Dtos/AuthResponseDto';
 
 import { Injectable } from "@angular/core";
@@ -48,15 +49,7 @@ export class HttpService{
         return this.http.delete(environment.delete + id +'/'+ isDeleteOnlyForSender);
     }
 
-    public getPrivateChat(firstUserId: number, secondUserId: number){
-        return this.http.get<ChatDto>(environment.privateChat + `${firstUserId}/${secondUserId}`)
-    }
-
-    public createPrivateChat(firstId: number, secondId: number){
-        const dto = {
-            firstUserId : firstId,
-            secondUserId : secondId,
-        }
+    public createPrivateChat(dto:NewChatDto){
         return this.http.post<ChatDto>(environment.createPrivateChat, dto);
     }
 

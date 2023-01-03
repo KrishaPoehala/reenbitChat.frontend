@@ -1,3 +1,7 @@
+import { DeleteMessageModalComponent } from './../../delete-message-modal/delete-message-modal.component';
+import { EditMessageModalComponent } from './../../edit-message-modal/edit-message-modal.component';
+import { NetworkService } from './../../network.service';
+import { NewChatDto } from './../../../Dtos/NewChatDto';
 import { ChatDto } from './../../../Dtos/ChatDto';
 import { UserService } from 'src/Services/UserService';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -14,8 +18,8 @@ import { HttpService } from 'src/Services/HttpService';
 export class MessageItemComponent implements OnInit {
 
   constructor(private fb : FormBuilder,
-     private chatService: HttpService, public modal: NgbModal,
-     public readonly userService: UserService)
+     private http: HttpService, 
+     public readonly userService: UserService, private modalService: NgbModal)
    { }
 
 
@@ -23,7 +27,7 @@ export class MessageItemComponent implements OnInit {
    onEdit(){
     const editedText = this.editeForm.controls.editedMessage.value?.trim();
     if(editedText){
-      this.chatService.editMessage(this.message?.id || 0, editedText ).subscribe();
+      this.http.editMessage(this.message?.id || 0, editedText ).subscribe();
       this.isEditingMode = !this.isEditingMode;
     }
   }
@@ -33,74 +37,76 @@ export class MessageItemComponent implements OnInit {
     this.editeForm = this.fb.group({
       editedMessage : [this.message?.text || '', Validators.required]
      })
-
-     this.chatService.getPrivateChat(this.message.sender.id, this.userService.currentUser.id)
-     .subscribe(r => this.privateChat = r, error => this.privateChat = null);
-  }
-
-  openModal(content : any){
-    this.modal.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
   @Input() message!: MessageDto;
 
   editSelectedMessage(){
     const newText = this.editeForm.controls.editedMessage.value || "";
-    this.chatService.editMessage(this.message?.id || 0, newText)
+    this.http.editMessage(this.message?.id || 0, newText)
     .subscribe();
   }
 
+  deleteOnlyForCurrentUser = false;
   @Output() deleteForSenderEmmiter : EventEmitter<number> = new EventEmitter();
   onDelete(){
-    
-    this.modal.dismissAll();
-    this.chatService.deleteMessage(this.message.id || 0, this.deleteOnlyForCurrentUser)
+    this.http.deleteMessage(this.message.id || 0, this.deleteOnlyForCurrentUser)
     .subscribe();
     if(this.deleteOnlyForCurrentUser){
       this.deleteForSenderEmmiter.emit(this.message.id);
     }
   }
 
-  deleteOnlyForCurrentUser = false;
-  onChange(){
-    this.deleteOnlyForCurrentUser = !this.deleteOnlyForCurrentUser;
-  }
-
   isCurrentUsersMessage(){
     return this.message.sender.id === this.userService.currentUser.id
   }
 
-  redirectToSender = true;
-  onRedirectionChange(){
-    this.redirectToSender = !this.redirectToSender;
+  privateChat: ChatDto | null = null;
+  redirectToPrivateChat(){
+    if(this.userService.setSelectedPrivateChat(this.message.sender) === false){
+      const dto = new NewChatDto(this.message.sender, this.userService.currentUser);
+      this.http.createPrivateChat(dto).subscribe(result => {
+        this.userService.setSelectedChat(result);
+      });
+  }
   }
 
-  privateChat: ChatDto | null = null;
-  redirectToPrivateChat(privateChatId: number){
-      for(let i = 0; i < this.userService.chats.length; ++i){
-         if(this.userService.chats[i].id === privateChatId){
-           this.userService.setSelectedChat(this.userService.chats[i]);
-           return;
-         }
-      }
-
-      this.chatService.createPrivateChat(this.userService.currentUser.id, this.message.sender.id)
-      .subscribe(r => this.userService.setSelectedChat(r));
+  forwardMessageModal(){
+    const modalRef = this.modalService.open(EditMessageModalComponent);
+    modalRef.result.then(r => {
+      this.redirectToSender = r
+      this.onRedirect();
+    });
   }
 
   onMessageTextClicked(){
-    if(this.userService.currentUser.id !== this.message.sender.id){
-      this.redirectToPrivateChat(this.privateChat?.id || -1);
+    if(this.userService.currentUser.id === this.message.sender.id){
+      return;
+    }
+
+    if(this.userService.setSelectedPrivateChat(this.message.sender) === false){
+        const dto = new NewChatDto(this.message.sender, this.userService.currentUser);
+        this.http.createPrivateChat(dto).subscribe(result => {
+          this.userService.setSelectedChat(result);
+        });
     }
   }
 
+  deleteMessageModal(){
+    const modalRef = this.modalService.open(DeleteMessageModalComponent);
+    modalRef.result.then(r => {
+      this.deleteOnlyForCurrentUser = r;
+      this.onDelete();
+    })
+  }
+
+  redirectToSender: boolean = false;
   onRedirect(){
     if(this.redirectToSender){
-      this.redirectToPrivateChat(this.privateChat?.id || -1);
-
+      this.redirectToPrivateChat();
     }
+
     this.forwardMessageEmmiter.emit(this.message);
-    this.modal.dismissAll(); 
   }
 
   @Output() forwardMessageEmmiter : EventEmitter<MessageDto> = new EventEmitter();

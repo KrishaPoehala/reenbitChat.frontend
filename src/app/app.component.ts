@@ -1,3 +1,4 @@
+import { NetworkService } from './network.service';
 import { environment } from './../environments/environment';
 import { UserService } from 'src/Services/UserService';
 import { MessageDto } from './../Dtos/MessageDto';
@@ -13,11 +14,16 @@ import { concat, concatMap, VirtualTimeScheduler, } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private chatService: HttpService, public readonly userService : UserService){}
+
+  network:NetworkService
+  constructor(private chatService: HttpService, public userService : UserService,
+    ){
+      this.network = new NetworkService(userService);
+  }
+
   ngOnInit(): void {
     this.chatService.getRandomUser().pipe(
       concatMap((result : UserDto) =>{
-        console.log(result + " DDDDDDDDDDDDDD");
         this.userService.currentUser = result;
         return this.chatService.getUserChats(result.id);
       }))
@@ -25,65 +31,11 @@ export class AppComponent implements OnInit {
         this.chats = result;
         this.userService.chats = this.chats;
         this.userService.selectedChat = this.chats[0];
-        this.configureHub();
+        this.network.configureHub();
       });
   }
 
-  configureHub(){
-    const connection = new HubConnectionBuilder().withUrl(environment.signalR).build();
-    connection.start().then(() =>{
-      this.chats.forEach(element => {
-        connection.invoke("JoinGroup",element.id.toString());
-      });
-    });
-
-    connection.on("MessageSent", (message : MessageDto) => {
-      for(let i =0;i < this.chats.length;++i){
-        if(this.chats[i].id === message.chatId){
-         // console.log(this.chats[i].name)
-          this.chats[i].messages.push(message);
-        }
-      }
-    });
-
-    connection.on("MessageEdited", (message: MessageDto)=>{
-      for(let i = 0; i < this.chats.length; ++i){
-        if(this.chats[i].id === message.chatId){
-          this.chats[i].messages.forEach(element => {
-            if(element.id === message.id){
-              element.text = message.text;
-            }
-          });
-        }
-      }
-    });
-
-    connection.on("MessageDeleted", (deletedMessage : MessageDto) => {
-      for (let i = 0; i < this.chats.length; i++) {
-        let index = 0;
-        if(this.chats[i].id === deletedMessage.chatId){
-          this.chats[i].messages.forEach(element => {
-            if(element.id === deletedMessage.id){
-              this.chats[i].messages.splice(index, 1);
-            }
-            ++index;
-          });
-        }
-      }
-    })
-
-    connection.on("ChatCreated", (createdChat: ChatDto) => {
-      for (let i = 0; i < createdChat.members.length; i++) {
-        const element = createdChat.members[i];
-        if(element.id === this.userService.currentUser.id){
-          this.chats.push(createdChat);
-          console.log(createdChat);
-          connection.invoke("JoinGroup", createdChat.id.toString());
-        }
-        
-      }
-    })
-  }
+  
 
   title="dfdff"
   public chats: ChatDto[] = [];

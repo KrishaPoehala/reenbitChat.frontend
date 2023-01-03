@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Redirection menu</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="passBack()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <p>Redirect to : </p>
+         Sender: <input type="radio" name="redirection" (change)="onRedirectionChange()" checked/>
+         <div></div>
+         Group: <input type="radio" name="redirection" (change)="onRedirectionChange()"/>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="passBack()">Redirect</button>
+  </div>
