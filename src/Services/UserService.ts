@@ -4,6 +4,9 @@ import { UserDto } from 'src/Dtos/UserDto';
 
 @Injectable()
 export class UserService{
+    public selectedChat! : ChatDto;
+    public currentUser! : UserDto;
+    public chats!: ChatDto[];
     setSelectedPrivateChat(sender: UserDto) {
         for(let i = 0; i < this.chats.length; ++i){
             if(this.isPrivateChat(this.chats[i], sender)){
@@ -15,7 +18,7 @@ export class UserService{
         return false;
     }
 
-    isPrivateChat(chat: ChatDto, sender: UserDto):boolean {
+    private isPrivateChat(chat: ChatDto, sender: UserDto):boolean {
         if(chat.isGroup !== false){
             return false;
         }
@@ -27,9 +30,6 @@ export class UserService{
         return false;
     }
    
-    public selectedChat! : ChatDto;
-    public currentUser! : UserDto;
-    public chats!: ChatDto[];
     setSelectedChat(chat : ChatDto){
         for (let i = 0; i < this.chats.length; i++) {
             const element = this.chats[i];

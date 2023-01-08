@@ -14,6 +14,16 @@ export const environment = {
   createPrivateChat: "https://localhost:7139/api/Chats/create",
   login: "https://localhost:7139/api/Accounts/login",
   signalR: "https://localhost:7139/chat",
+
+  firebaseConfig: {
+    apiKey: "AIzaSyDkQFLRayEFK73XIpEFLvlZbO410yTIAZA",
+    authDomain: "reenbitchatauth-725be.firebaseapp.com",
+    projectId: "reenbitchatauth-725be",
+    storageBucket: "reenbitchatauth-725be.appspot.com",
+    messagingSenderId: "789865483754",
+    appId: "1:789865483754:web:ef330544a6766af026b693",
+    measurementId: "G-MWB3Q6G6JC"
+  },
 };
 
 /*

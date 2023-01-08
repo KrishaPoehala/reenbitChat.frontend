@@ -1,7 +1,7 @@
 import { UserService } from 'src/Services/UserService';
 import { NewMessageDto } from './../../../Dtos/NewMessageDto';
 import { HttpService } from 'src/Services/HttpService';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MessageDto } from 'src/Dtos/MessageDto';
 
