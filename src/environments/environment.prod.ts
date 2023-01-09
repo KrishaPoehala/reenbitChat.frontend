@@ -1,5 +1,4 @@
-
-const origin = "chatikservice.azurewebsites.net/";
+const origin = "https://chatikservice.azurewebsites.net/";
 const api = origin + "api";
 
 export const environment = {
