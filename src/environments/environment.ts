@@ -2,28 +2,20 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const origin = "https://localhost:7139";
+const api = origin + "api/";
 export const environment = {
   production: false,
-  userChats: "https://localhost:7139/api/Chats/chats/",
-  randomUser: "https://localhost:7139/api/Chats/randomUser",
-  firstMessages: "https://localhost:7139/api/Chats/messages/",
-  sendMessage: "https://localhost:7139/api/Messages/send",
-  editMessage : "https://localhost:7139/api/Messages/edit",
-  delete:"https://localhost:7139/api/Messages/delete/",
-  privateChat: "https://localhost:7139/api/Chats/privateChat/",
-  createPrivateChat: "https://localhost:7139/api/Chats/create",
-  login: "https://localhost:7139/api/Accounts/login",
-  signalR: "https://localhost:7139/chat",
-
-  firebaseConfig: {
-    apiKey: "AIzaSyDkQFLRayEFK73XIpEFLvlZbO410yTIAZA",
-    authDomain: "reenbitchatauth-725be.firebaseapp.com",
-    projectId: "reenbitchatauth-725be",
-    storageBucket: "reenbitchatauth-725be.appspot.com",
-    messagingSenderId: "789865483754",
-    appId: "1:789865483754:web:ef330544a6766af026b693",
-    measurementId: "G-MWB3Q6G6JC"
-  },
+  userChats: api + "/Chats/chats/",
+  randomUser: api + "/Chats/randomUser",
+  firstMessages: api + "/Chats/messages/",
+  sendMessage:  api + "/Messages/send",
+  editMessage :  api + "/Messages/edit",
+  delete: api + "/Messages/delete/",
+  privateChat:  api + "/Chats/privateChat/",
+  createPrivateChat:  api + "/Chats/create",
+  login: api +  "/Accounts/login",
+  signalR: origin+ "/chat",
 };
 
 /*
