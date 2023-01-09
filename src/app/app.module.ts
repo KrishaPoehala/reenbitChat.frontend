@@ -13,15 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpService } from 'src/Services/HttpService';
 import { UserService } from 'src/Services/UserService';
 import { Routes, RouterModule } from '@angular/router';
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { DeleteMessageModalComponent } from './delete-message-modal/delete-message-modal.component';
 import { EditMessageModalComponent } from './edit-message-modal/edit-message-modal.component';
-import { AngularFireModule } from "@angular/fire/compat";
-import { AngularFireAuthModule } from "@angular/fire/compat/auth";
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 const appRoutes :Routes = [
   {path:'', component : ChatListComponent},
   {path:'login', component: LoginComponent}
@@ -41,7 +35,6 @@ const appRoutes :Routes = [
     ChatsModule,
     HttpClientModule,
     FormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
   ],
   providers: [HttpService,UserService,LoginGuard],

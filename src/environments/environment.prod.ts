@@ -1,6 +1,6 @@
 
-const origin = "chatikservice.azurewebsites.net";
-const api = origin + "api/";
+const origin = "chatikservice.azurewebsites.net/";
+const api = origin + "api";
 
 export const environment = {
   production: true,
@@ -12,5 +12,5 @@ export const environment = {
   delete: api + "/Messages/delete/",
   createPrivateChat:api +  "/Chats/privateChat/create",
   login: api + "/Accounts/login",
-  signalR: origin + "/chat",
+  signalR: origin + "chat",
 };

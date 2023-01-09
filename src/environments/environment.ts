@@ -2,8 +2,8 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const origin = "https://localhost:7139";
-const api = origin + "api/";
+const origin = "https://localhost:7139/";
+const api = origin + "api";
 export const environment = {
   production: false,
   userChats: api + "/Chats/chats/",
@@ -15,7 +15,7 @@ export const environment = {
   privateChat:  api + "/Chats/privateChat/",
   createPrivateChat:  api + "/Chats/create",
   login: api +  "/Accounts/login",
-  signalR: origin+ "/chat",
+  signalR: origin+ "chat",
 };
 
 /*
